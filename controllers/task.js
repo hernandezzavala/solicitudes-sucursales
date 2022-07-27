@@ -18,8 +18,8 @@ const getTask = async (request, response) => {
 
 const getTasks = async (request, response) => {
     try {
-        let {state} = params.query;
-        state === true ? true : false;
+        let {state} = request.query;
+        state === 'true' ? true : false;
         const tasks = await Task.find({deleted: false, finished: state});
         return response.status(200).json({
             ok: true,

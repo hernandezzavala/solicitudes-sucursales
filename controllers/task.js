@@ -54,7 +54,7 @@ const postTask = async (request, response) => {
 const putTask = async (request, response) => {
     try {
         const {id} = request.params;
-        const {rejected, deleted, ...task} = request.body;
+        const {deleted, ...task} = request.body;
         const updated = await Task.findByIdAndUpdate(id, {task}, {new: true});
         return response.status(200).json({
             ok: true,

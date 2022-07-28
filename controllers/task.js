@@ -36,6 +36,7 @@ const getTasks = async (request, response) => {
 const postTask = async (request, response) => {
     try {
         const {rejected, deleted, ...task} = request.body;
+        task.rejected = false;
         const created = new Task(task);
         await created.save();
         return response.status(201).json({

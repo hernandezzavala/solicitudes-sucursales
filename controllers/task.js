@@ -54,7 +54,7 @@ const putTask = async (request, response) => {
     try {
         const {id} = request.params;
         const {rejected, deleted, ...task} = request.body;
-        const updated = Task.findByIdAndUpdate(id, task, {new: true});
+        const updated = await Task.findByIdAndUpdate(id, {task}, {new: true});
         return response.status(200).json({
             ok: true,
             data: updated
@@ -70,7 +70,7 @@ const putTask = async (request, response) => {
 const deleteTask = async (request, response) => {
     try {
         const {id} = request.params;
-        const deleted = await Task.findByIdAndUpdate(id, {deleted: true});
+        const deleted = await Task.findByIdAndUpdate(id, {deleted: true}, {new: true});
         return response.status(200).json({
             ok: true,
             data: deleted

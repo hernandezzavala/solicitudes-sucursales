@@ -53,7 +53,7 @@ const putSubsidiary = async (request, response) => {
     try {
         const {id} = request.params;
         const {name, manager} = request.body;
-        const updated = Subsidiary.findByIdAndUpdate(id, manager ? {name, manager} : {name}, {new: true});
+        const updated = await Subsidiary.findByIdAndUpdate(id, manager ? {name, manager} : {name}, {new: true});
         return response.status(200).json({
             ok: true,
             data: updated
@@ -70,7 +70,7 @@ const putSubsidiary = async (request, response) => {
 const deleteSubsidiary = async (request, response) => {
     try {
         const {id} = request.params;
-        const deleted = await Subsidiary.findByIdAndUpdate(id, {deleted: true});
+        const deleted = await Subsidiary.findByIdAndUpdate(id, {deleted: true}, {new: true});
         return response.status(200).json({
             ok: true,
             data: deleted

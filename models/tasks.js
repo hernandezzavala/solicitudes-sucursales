@@ -46,7 +46,7 @@ const taskSchema = Schema({
 
 taskSchema.methods.toJSON = function() {
     const {__v, _id, ...task} = this.toObject();
-    task.uid = task_id;
+    task.uid = _id;
     return task;
 }
 

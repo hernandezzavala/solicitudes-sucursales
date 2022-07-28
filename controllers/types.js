@@ -52,12 +52,14 @@ const putType = async (request, response) => {
     try {
         const {id} = request.params;
         const {name} = request.body;
-        const updated = Type.findByIdAndUpdate(id, name, {new: true});
+        const updated = await Type.findByIdAndUpdate(id, {name}, {new: true});
+        console.log(updated);
         return response.status(200).json({
             ok: true,
             data: updated
         });
     } catch (error) {
+        console.log(error);
         return response.status(400).json({
             ok: false,
             errors: 'Ha ocurrido un error en la petición. Inténtalo nuevamente'
@@ -68,7 +70,7 @@ const putType = async (request, response) => {
 const deleteType = async (request, response) => {
     try {
         const {id} = request.params;
-        const deleted = await Type.findByIdAndUpdate(id, {deleted: true});
+        const deleted = await Type.findByIdAndUpdate(id, {deleted: true}, {new: true});
         return response.status(200).json({
             ok: true,
             data: deleted

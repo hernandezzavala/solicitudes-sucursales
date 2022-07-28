@@ -52,7 +52,7 @@ const putDevice = async (request, response) => {
     try {
         const {id} = request.params;
         const {name} = request.body;
-        const updated = Device.findByIdAndUpdate(id, name, {new: true});
+        const updated = await Device.findByIdAndUpdate(id, {name}, {new: true});
         return response.status(200).json({
             ok: true,
             data: updated
@@ -68,7 +68,7 @@ const putDevice = async (request, response) => {
 const deleteDevice = async (request, response) => {
     try {
         const {id} = request.params;
-        const deleted = await Device.findByIdAndUpdate(id, {deleted: true});
+        const deleted = await Device.findByIdAndUpdate(id, {deleted: true}, {new: true});
         return response.status(200).json({
             ok: true,
             data: deleted

@@ -55,7 +55,7 @@ const putUser = async (request, response) => {
     try {
         const {id} = request.params;
         const {isAdmin, banned, deleted, ...user} = request.body;
-        const updated = User.findByIdAndUpdate(id, user, {new: true});
+        const updated = await User.findByIdAndUpdate(id, {user}, {new: true});
         return response.status(200).json({
             ok: true,
             data: updated
@@ -71,7 +71,7 @@ const putUser = async (request, response) => {
 const deleteUser = async (request, response) => {
     try {
         const {id} = request.params;
-        const deleted = await User.findByIdAndUpdate(id, {deleted: true});
+        const deleted = await User.findByIdAndUpdate(id, {deleted: true}, {new: true});
         return response.status(200).json({
             ok: true,
             data: deleted

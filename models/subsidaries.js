@@ -21,7 +21,7 @@ const subsidiarySchema = Schema({
 
 subsidiarySchema.methods.toJSON = function() {
     const {__v, _id, ...subsidiary} = this.toObject();
-    subsidiary.uid = subsidiary._id;
+    subsidiary.uid = _id;
     return subsidiary;
 }
 

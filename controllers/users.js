@@ -19,10 +19,13 @@ const getUser = async (request, response) => {
 
 const getUsers = async (request, response) => {
     try {
-        const users = await User.find({deleted: false});
+        const users = await User.find({deleted: false}).populate('subsidiary', 'name');
+        const newUsers = users.map((user) => {
+            return {uid: user.id, name: user.subsidiary.name, isAdmin: user.isAdmin}
+        })
         return response.status(200).json({
             ok: true,
-            data: users
+            data: newUsers
         });
     } catch (error) {
         return response.status(400).json({

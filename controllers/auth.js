@@ -32,7 +32,7 @@ const login = async (request, response) => {
         const token = await generateToken(user.id);
         response.status(200).json({
             ok: true,
-            data: {token}
+            data: {token, user: {id: user.id, isAdmin: user.isAdmin}}
         });
     } catch (error) {
         return response.status(400).json({

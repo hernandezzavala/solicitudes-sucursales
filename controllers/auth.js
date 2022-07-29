@@ -5,7 +5,7 @@ const {generateToken} =  require('../helpers/token');
 const login = async (request, response) => {
     const {name, password} = request.body;
     try {
-        const user = await User.findOne({name});
+        const user = await User.findOne({name}).populate('subsidiary', 'name');
 
         if(!user || user.deleted) {
             return response.status(400).json({
@@ -32,7 +32,7 @@ const login = async (request, response) => {
         const token = await generateToken(user.id);
         response.status(200).json({
             ok: true,
-            data: {token, user: {id: user.id, isAdmin: user.isAdmin}}
+            data: {token, user: {id: user.id, name: user.subsidiary.name, isAdmin: user.isAdmin}}
         });
     } catch (error) {
         return response.status(400).json({

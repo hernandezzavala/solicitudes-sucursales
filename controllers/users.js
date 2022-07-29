@@ -21,9 +21,8 @@ const getUsers = async (request, response) => {
     try {
         const users = await User.find({deleted: false}).populate('subsidiary', 'name');
         const newUsers = users.map((user) => {
-            if(user.name === 'sistemas') return;
             return {uid: user.id, name: user.subsidiary.name, isAdmin: user.isAdmin}
-        })
+        }).filter(user => user.name !== 'Sistemas');
         return response.status(200).json({
             ok: true,
             data: newUsers

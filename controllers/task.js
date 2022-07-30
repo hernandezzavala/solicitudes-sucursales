@@ -20,7 +20,7 @@ const getTasks = async (request, response) => {
     try {
         let {state} = request.query;
         state === 'true' ? true : false;
-        const tasks = await Task.find({deleted: false, finished: state}).populate('user');
+        const tasks = await Task.find({deleted: false, finished: state}).populate('petitioner');
         return response.status(200).json({
             ok: true,
             data: tasks

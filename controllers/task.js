@@ -20,7 +20,7 @@ const getTasks = async (request, response) => {
     try {
         let {state} = request.query;
         state === 'true' ? true : false;
-        const tasks = await Task.find({deleted: false, finished: state});
+        const tasks = await Task.find({deleted: false, rejected: false, finished: state});
         return response.status(200).json({
             ok: true,
             data: tasks
@@ -54,8 +54,8 @@ const postTask = async (request, response) => {
 const putTask = async (request, response) => {
     try {
         const {id} = request.params;
-        const {deleted, ...task} = request.body;
-        const updated = await Task.findByIdAndUpdate(id, {task}, {new: true});
+        const task = request.body;
+        const updated = await Task.findByIdAndUpdate(id, task, {new: true});
         return response.status(200).json({
             ok: true,
             data: updated

@@ -21,7 +21,6 @@ const getTasks = async (request, response) => {
         let {state, subsidiary} = request.query;
         state === 'true' ? true : false;
         let tasks;
-        console.log(subsidiary);
         subsidiary
         ? tasks = await Task.find({deleted: false, rejected: false, finished: state, petitioner: subsidiary})
         : tasks = await Task.find({deleted: false, rejected: false, finished: state});

@@ -32,7 +32,7 @@ const setRoutes = () => {
 
 const setListener = () => {
     app.listen(port, () => {
-        console.log(`Sevidor corriendo en el puerto ${port}`);
+        console.log(`Servidor corriendo en el puerto ${port}`);
     });
 }
 
